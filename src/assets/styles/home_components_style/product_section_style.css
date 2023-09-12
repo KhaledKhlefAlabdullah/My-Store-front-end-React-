@@ -1,0 +1,34 @@
+
+  /* Product card style */
+  .product-card{
+    height: auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Product details style */
+  .product-details-card{
+    height: 30vh !important;
+  }
+
+  .img-details{
+    width: 10rem !important;
+    height: 10rem !important;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  .img-details img{
+    width: 100%;
+  }
+
+  /*  End Product details style  */
+  @media(min-width:991px){
+    .product-card{
+      width: 24vw !important;
+    }
+  }
+
+  
