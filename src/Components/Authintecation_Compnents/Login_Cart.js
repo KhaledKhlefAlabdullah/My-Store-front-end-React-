@@ -11,6 +11,7 @@ import axios from "axios";
 import { EMAIL_REGEX, PWD_REGEX, LOGIN } from "../REGEX_And_APIs.js";
 import { Auth_Context } from "../../Context/Auth_Context.js";
 import Loader from "../Loader.js";
+
 /**
  * this function is used to login to the application using api
  * @returns login_from
@@ -25,31 +26,44 @@ export default function Login_Cart() {
 
   // to redirect to home page
   const navigate = useNavigate();
+
   // to select the items in login form
   const emailRef = useRef();
+
   const errorRef = useRef();
+
   // to get Email value and check if is valid & foucs it
   const [email, setEmail] = useState("");
+
   const [validEmail, setValidateEmail] = useState(false);
+
   const [emailFoucs, setEmailFouces] = useState(false);
+
   // to get password value and check if is valid & foucs it
   const [password, setPassword] = useState("");
+
   const [validatePassword, setValidatePassword] = useState(false);
+
   const [passwordFoucs, setPasswordFouces] = useState(false);
+
   // to store the error message
   const [error, setError] = useState("");
+
   // to make select the email input field automatically
   useEffect(() => {
     emailRef.current.focus();
   }, []);
+
   // validate the email with regex and set the value of validEmail true
   useEffect(() => {
     setValidateEmail(EMAIL_REGEX.test(email));
   }, [email]);
+
   // validate the password with regex and set the value of validPassword true
   useEffect(() => {
     setValidatePassword(PWD_REGEX.test(password));
   }, [password]);
+
   // set the value of errorMessage empty string
   useEffect(() => {
     setError("");
@@ -96,6 +110,7 @@ export default function Login_Cart() {
 
         // Store user token in locale storage 
         localStorage.setItem("token", token);
+        
         // Store user object in local storage
         localStorage.setItem("user", JSON.stringify(user));
 

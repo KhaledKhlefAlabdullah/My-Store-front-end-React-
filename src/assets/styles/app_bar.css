@@ -50,6 +50,15 @@
     height: 2.5rem !important;
 }
 
+/* Search list style */
+.search-list{
+    z-index: 2!important;
+}
+
+.search-list ul{
+    list-style: none !important;
+}
+/**/
 @media (max-width: 991px) {
     .nav-bar {
         position: absolute !important;

@@ -9,6 +9,7 @@ import { Auth_Context } from "../../Context/Auth_Context";
 import Loader from "../Loader";
 
 export default function Shoppinh_Cart({ isOpen }) {
+  
   // Get order values from Shopping_Context
   const { cartItems, setCartItems, closeSideCart } =
     useContext(Shopping_Context);
@@ -19,9 +20,10 @@ export default function Shoppinh_Cart({ isOpen }) {
   // To check if is loged in or redirecte to login page
   const auth_context = useContext(Auth_Context);
 
-  const items = localStorage.getItem("products");
+  const items = JSON.parse(localStorage.getItem("products"));
 
   const create_order = async () => {
+
     // Set isLoding true
     setIsloding(true);
 
@@ -45,20 +47,23 @@ export default function Shoppinh_Cart({ isOpen }) {
         user_id: user_id,
         products: order_products,
       };
-
+      
       const response = await axios.post(CREATE_ORDER, CREAT_ORDER_D, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
       });
 
       if (response.status === 200) {
+
         alert("تم اضافة الطلب بنجاح");
 
+        const user_id = JSON.parse(localStorage.getItem('user')).id;
+
         // Get the existing orders from local storage
-        const existing_orders = JSON.parse(localStorage.getItem("Shopping_Items")) || [];
+        const existing_orders = JSON.parse(localStorage.getItem(`Shopping_Items${user_id}`)) || [];
 
         // Combine the new order (cartItems) with the existing orders
         const new_order = [...existing_orders, cartItems];
@@ -67,7 +72,7 @@ export default function Shoppinh_Cart({ isOpen }) {
         localStorage.setItem("my_orders", JSON.stringify(new_order));
 
         // Clear the shopping items and reset the cart items
-        localStorage.removeItem("Shopping_Items");
+        localStorage.removeItem(`Shopping_Items${user_id}`);
 
         setCartItems([]);
 
@@ -108,7 +113,7 @@ export default function Shoppinh_Cart({ isOpen }) {
                   المجموع:{" "}
                   {forma_currency(
                     cartItems.reduce((total, cartItem) => {
-                      const item = JSON.parse(items).find(
+                      const item = items.find(
                         (i) => i.id === cartItem.id
                       );
                       return total + (item?.price || 0) * cartItem.quantity;

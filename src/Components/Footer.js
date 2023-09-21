@@ -1,27 +1,28 @@
 import { Link, useLocation } from "react-router-dom";
+import {Container} from "react-bootstrap";
 export default function Footer() {
   const location = useLocation();
   const isAuthPage = location.pathname === "/Login-Register";
   if (isAuthPage) return null;
   return (
       <footer>
-        <div class="footer section-me bg-section-color mb-2 my-box-shadow">
-          <div class="footer-row sociale">
+        <Container className="footer section-me bg-section-color mb-2 my-box-shadow">
+          <Container className="footer-row sociale">
             <a href="#">
-              <i class="fab fa-facebook-square "></i>
+              <i className="fab fa-facebook-square "></i>
             </a>
             <a href="#">
-              <i class="fab fa-instagram"></i>
+              <i className="fab fa-instagram"></i>
             </a>
             <a href="#">
-              <i class="fab fa-whatsapp-square"></i>
+              <i className="fab fa-whatsapp-square"></i>
             </a>
             <a href="#">
-              <i class="fab fa-twitter-square"></i>
+              <i className="fab fa-twitter-square"></i>
             </a>
-          </div>
+          </Container>
 
-          <div class="footer-row">
+          <Container className="footer-row">
             <ul>
               <li>
                 <Link to="/Contact">تواصل معنا</Link>
@@ -39,12 +40,12 @@ export default function Footer() {
                 <Link to="#">المسار الوظيفي</Link>
               </li>
             </ul>
-          </div>
+          </Container>
 
-          <div class="footer-row">
+          <Container className="footer-row">
             حقوق النشر © 2023 - جميع الحقوق محفوظة || تصميم: خالد العبدالله
-          </div>
-        </div>
+          </Container>
+        </Container>
       </footer>
   );
 }

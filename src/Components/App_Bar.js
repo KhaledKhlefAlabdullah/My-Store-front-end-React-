@@ -2,7 +2,7 @@ import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo_dark from "../assets/images/logo_dark.png";
 import logo_light from "../assets/images/logo_light.png";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Serch_Box from "./App_Bar_Components/Serch_Box";
 import Menue_Button from "./App_Bar_Components/Menue_Button";
 import viewMenu from "./App_Bar_Components/View_Menu";
@@ -12,9 +12,9 @@ import { Auth_Context } from "../Context/Auth_Context";
 import axios from "axios";
 import { LOGOUT } from "./REGEX_And_APIs";
 import { Shopping_Context } from "../Context/Shopping_Cart_Context";
+import { Theme_Context } from "../Context/Change_Theme_Context";
 
 export default function App_Bar() {
-
   // Get quantity of products in cart and side product menu state
   const { openSideCart, cartQuantity } = useContext(Shopping_Context);
 
@@ -24,37 +24,49 @@ export default function App_Bar() {
   // Get user token and email
   const auth_context = useContext(Auth_Context);
 
-  const [colorMod, setColorMode] = useState("dark");
+  // Get the theme color mod to change the color of the logo
+  const theme_context = useContext(Theme_Context);
+
+  // To update menu state (hide, show)
   const [menuState, setMenuState] = useState(true);
+
+  // Get state is mobile to hide menu and show menu button
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
+
+   // Ref to the list menu container
+   const linksRef = useRef(null);
+
+  // To get the location of current page
   const location = useLocation();
 
-  // to change logo color theme on change app color theme
-  const changeLogoColor = (e) => {
-    setColorMode(e);
-  };
-  // change menu icons depandend on the state
+  // Change menu icons depandend on the state
   const changeMenuState = () => {
     setMenuState(!menuState);
-    // called function to show and hide the nave links menu
+
+    // Called function to show and hide the nave links menu
     viewMenu(menuState);
   };
-  // handle window resize to hide menu
+
+  // Handle window resize to hide menu
   useEffect(() => {
-    // function to handle window resize
+    // Function to handle window resize
     function handleResize() {
       setIsMobile(window.innerWidth <= 991);
     }
-    // add window resize event listener
+    // Add window resize event listener
     window.addEventListener("resize", handleResize);
-    // clen the event listener when the component unmount
+    // Clen the event listener when the component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  // Logout functionality
   const logout = async () => {
     try {
+
+      const token = auth_context.auth.token;
+
       const response = await axios.post(
         LOGOUT,
         {},
@@ -62,13 +74,12 @@ export default function App_Bar() {
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Authorization": `Bearer ${auth_context.auth.token}`,
+            "Authorization": `Bearer ${token}`
           },
         }
       );
 
       if (response.status === 200) {
-        
         // Clear user token, permissions and email from local storage
         localStorage.removeItem("token");
         localStorage.removeItem("email");
@@ -95,18 +106,19 @@ export default function App_Bar() {
     }
   };
 
-  // hide the nave links when the widow size be mobile screen size
+  // Hide the nave links when the widow size be mobile screen size
   const menu_style = isMobile
     ? "hide ml-auto nav-bar"
     : "ico-trans ml-auto mr-4 nav-bar";
-  // check if is the path Authintecation page path
+
+  // Check if is the path Authintecation page path
   const isAuthPage = location.pathname === "/Login-Register";
   if (isAuthPage) return null;
   return (
-    <Navbar sticky="top" className="mt-2 mb-3 dir-rtl app-bar section-me bg-section-color my-box-shadow">
+    <Navbar className="mt-2 mb-3 dir-rtl app-bar section-me bg-section-color my-box-shadow" ref={linksRef}>
       <Container className="justify-content-around text-right ml-3 mr-3">
         <img
-          src={colorMod == "dark" ? logo_dark : logo_light}
+          src={theme_context.theme === "dark" ? logo_dark : logo_light}
           alt="logo"
           className="logo"
         />
@@ -123,7 +135,9 @@ export default function App_Bar() {
           {auth_context.auth.token ? (
             <>
               <Nav.Link to="/Profile" as={NavLink}>
-                {!auth_context.auth.roles.includes('admin') ? "الملف الشخصي" : "لوحة التحكم"}
+                {!auth_context.auth.roles.includes("admin")
+                  ? "الملف الشخصي"
+                  : "لوحة التحكم"}
               </Nav.Link>
               <Button className="btn btn-bar mt-1 ml-3 logout" onClick={logout}>
                 <svg
@@ -140,10 +154,13 @@ export default function App_Bar() {
               تسجيل الدخول
             </Nav.Link>
           )}
-          <Swap_Color_Mode changeLogoColor={changeLogoColor} />
+          <Swap_Color_Mode />
         </Nav>
         <Serch_Box />
-        <Button className="shop-btn rounded-circle" onClick={() => openSideCart()}>
+        <Button
+          className="shop-btn rounded-circle"
+          onClick={() => openSideCart()}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 576 512"
@@ -155,7 +172,7 @@ export default function App_Bar() {
             {cartQuantity}
           </div>
         </Button>
-        <Menue_Button changeMenuState={changeMenuState} menuState={menuState} />
+        <Menue_Button changeMenuState={changeMenuState} menuState={menuState} linksRef={linksRef}/>
       </Container>
     </Navbar>
   );

@@ -80,8 +80,8 @@ export default function Product_Details() {
                 <Loader />
               ) : (
                 <Row className="d-flex align-items-center justify-content-between">
-                  <Container className="col-lg-4 col-md-6 col-sm-12">
-                    <Container className="imgs-container rounded mr-1">
+                  <Container className="col-lg-4 col-md-6 col-sm-12 p-sm-2">
+                    <Container className="imgs-container rounded m-md-2">
                       <img
                         src={SERVER_PATH + product_details.product_img}
                         alt={`Product ${product_details.product_img}`}
@@ -93,7 +93,10 @@ export default function Product_Details() {
                     <Row className="d-flex align-items-center justify-content-between">
                       <Container className="col-12 mt-2 mb-1">
                         <Container className="d-flex flex-end align-items-center justify-content-start">
-                          <h3>{product_details.product_name}</h3>
+                          <h3>{product_details.product_name}:</h3>
+                        </Container>
+                        <Container className="d-flex flex-end align-items-center justify-content-start">
+                          <h5>{product_details.product_description}</h5>
                         </Container>
                         <Container className="d-flex flex-end align-items-center justify-content-start">
                           <h6>{forma_currency(product_details.price)}</h6>
@@ -101,7 +104,7 @@ export default function Product_Details() {
                       </Container>
                       <Container className="col-12 produdct-btns mb-4 mt-2">
                         {quantityInCart === 0 ? (
-                          <Container className="w-50 mb-2 ml-0 mr-0 d-flex flex-column align-items-center justify-content-around">
+                          <Container className="w-50 mb-2 m-md-2 m-sm-4 ml-0 mr-0 d-flex flex-lg-column flex-md-column align-items-center justify-content-around">
                             <Container className="mt-2 mb-2 d-flex align-items-center justify-content-start">
                               <Button
                                 onClick={() => {
@@ -220,8 +223,8 @@ export default function Product_Details() {
                       </Container>
                     </Row>
                   </Container>
-                  <Container className="col-lg-4 col-md-12 col-sm-12">
-                    <Row className="m-1 d-flex align-items-center justify-content-center">
+                  <Container>
+                    <Row className="m-1 p-2 d-flex align-items-center justify-content-around">
                       {images.length === 0 ? (
                         <Container className="col-12 img-details rounded">
                           <svg
@@ -236,7 +239,7 @@ export default function Product_Details() {
                         images.map((image) => (
                           <Container
                             key={image.id}
-                            className="p-0 my-box-shadow img-details rounded"
+                            className="p-0 m-2 my-box-shadow img-details rounded"
                           >
                             <img
                               src={SERVER_PATH + image.img_src}

@@ -1,11 +1,16 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import Shoppinh_Cart from "../Components/Shopping_Cart_Components/Shopping_Cart";
+import { Auth_Context } from "./Auth_Context";
 
 export const Shopping_Context = createContext({});
 
-const starting_CrtItems_value = localStorage.getItem('Shopping_Items') ? JSON.parse(localStorage.getItem('Shopping_Items')) : [];
+const user_id = JSON.parse(localStorage.getItem('user'))?.id;
+
+const starting_CrtItems_value = localStorage.getItem(`Shopping_Items${user_id}`) ? JSON.parse(localStorage.getItem(`Shopping_Items${user_id}`)) : [];
 
 const Shopping_Provider = (props) => {
+
+  
   
   // To set side cart menu state opne or close
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +31,7 @@ const Shopping_Provider = (props) => {
   
   useEffect(()=>{
 
-    localStorage.setItem('Shopping_Items',JSON.stringify(cartItems));
+    localStorage.setItem(`Shopping_Items${user_id}`,JSON.stringify(cartItems));
 
   },[cartItems]);
 

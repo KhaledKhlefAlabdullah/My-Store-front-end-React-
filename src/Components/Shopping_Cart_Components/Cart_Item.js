@@ -5,11 +5,13 @@ import forma_currency from "../CurrencyFomating";
 import { Shopping_Context } from "../../Context/Shopping_Cart_Context";
 
 const Cart_Item = ({ id, quantity }) => {
-  
+  // Get items from locale storage (items is product who come from api store in local storage)
   const items = JSON.parse(localStorage.getItem("products"));
 
+  // Get the item data by id from the items
   const item = items.find((item) => item.id === id);
 
+  // Use context to remove item from cart
   const { removeItemFromCart } = useContext(Shopping_Context);
 
   return (

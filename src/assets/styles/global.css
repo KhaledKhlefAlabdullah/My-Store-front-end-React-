@@ -140,7 +140,6 @@ a:hover{
 .separator{
     width: 100%;
     height: 8vh;
-    border-radius: 25px;
 }
 
 /* background color */
@@ -178,8 +177,13 @@ a:hover{
     padding: 0px !important;
     overflow: hidden !important;
 }
+
 .my-box-shadow{
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 4px 3px rgba(0, 0, 0, 0.3);
+}
+
+.my-inset-shadow{
+    box-shadow: inset 0 0 8px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* Loding style */

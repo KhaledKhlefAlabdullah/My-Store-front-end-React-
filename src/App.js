@@ -11,6 +11,8 @@ import Footer from "./Components/Footer";
 import { Auth_Provider } from "./Context/Auth_Context";
 import Shopping_Provider from "./Context/Shopping_Cart_Context";
 import Product_Details from "./Pages/Product_Details";
+import { Theme_Provider } from "./Context/Change_Theme_Context";
+import Order_Details from "./Components/Profile_Components/Order_Details";
 function App() {
   return (
     <Container className="pt-1 pb-1">
@@ -22,6 +24,7 @@ function App() {
           <Route path="About" element={<About />} />
           <Route path="Profile" element={<Profile />} />
           <Route path="product-details/:id" element={<Product_Details />} />
+          <Route path="order-details/:id" element={<Order_Details />} />
           <Route path="Login-Register" element={<Login_Register />} />
         </Routes>
       </div>
@@ -34,7 +37,9 @@ function App_With_Providers() {
   return (
     <Auth_Provider>
       <Shopping_Provider>
-        <App />
+        <Theme_Provider>
+          <App />
+        </Theme_Provider>
       </Shopping_Provider>
     </Auth_Provider>
   );

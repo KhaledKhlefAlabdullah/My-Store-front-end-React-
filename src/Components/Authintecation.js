@@ -1,5 +1,6 @@
 import Login_Cart from "./Authintecation_Compnents/Login_Cart";
 import Register_Cart from "./Authintecation_Compnents/Register_Cart";
+
 export default function AuthenticationForm({ title, btnText }) {
   return (
     <div className="section pb-5 pt-0 pt-sm-2 text-center">

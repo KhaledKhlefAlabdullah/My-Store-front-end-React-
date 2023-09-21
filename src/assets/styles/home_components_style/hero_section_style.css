@@ -88,9 +88,7 @@
     background-color: var(--inner-section-background-color);
     border-radius: 5px;
     display: flex;
-
     margin: .5rem;
-
 }
 
 .hero-card-face {

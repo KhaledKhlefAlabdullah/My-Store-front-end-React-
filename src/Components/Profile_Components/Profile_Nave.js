@@ -1,17 +1,16 @@
-import { useContext } from "react";
+
 import { Button, Container, Row } from "react-bootstrap";
-import { Show_Context } from "../../Context/Show_Context";
 import { Link } from "react-router-dom";
 
 export default function Profile_Nave() {
-    
-  // Create show state to hide and view the users section
-  const show = useContext(Show_Context);
 
+  const roles = localStorage.getItem("permissions");
+  
+  // Create show state to hide and view the users section 
   return (
     <Container className="profile_nav my-box-shadow mb-2 d-flex align-items-center justify-content-center">
       <Row className="w-100 pt-2 pb-2">
-        <Container className="col-6 p-0 d-flex align-items-center justify-content-center">
+        { roles.includes('admin') && <Container className="col-6 p-0 d-flex align-items-center justify-content-center">
           <Button className="user-btn my-box-shadow" >
             <span className="d-inline-block person ml-2">
               <svg
@@ -24,7 +23,8 @@ export default function Profile_Nave() {
             </span>
             <span className="d-inline-blok">عرض المستخدمين</span>
           </Button>
-        </Container>
+        </Container>}
+        
         <Container className="col-6 d-flex align-items-center justify-content-center">
           <Link to="/" className="btn user-btn my-box-shadow" >
             <span className="d-inline-block person ml-2">

@@ -1,12 +1,16 @@
 import { Container } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import mall from "../../assets/images/hero_images/mall.png";
 import beard from "../../assets/images/hero_images/beard.jpeg";
 import gazelle from "../../assets/images/hero_images/gazelle.jpeg";
 import gate from "../../assets/images/hero_images/forest_gate.jpeg";
 import road from "../../assets/images/hero_images/road_to_moon.jpeg";
+import { Theme_Context } from "../../Context/Change_Theme_Context";
+
 export default function Hero_Section() {
-  const selectedMode = localStorage.getItem("selectedTheme");
+
+  const theme_context = useContext(Theme_Context);
+
   return (
     <Container className="home-section mt-2 mb-2 dir-rtl my-box-shadow">
       <div className="row">
@@ -20,7 +24,7 @@ export default function Hero_Section() {
           </div>
 
           <div className="row features pl-4">
-            <div className="col-lg-2 hero-card d-flex align-items-center justify-content-center">
+            <div className="col-lg-2 my-inset-shadow hero-card d-flex align-items-center justify-content-center">
               <div className="hero-card-face hero-card-front">
                 <h6>منتجات متنوعة:</h6>
                 <i className="fas fa-shopping-cart"></i>
@@ -32,7 +36,7 @@ export default function Hero_Section() {
                 </p>
               </div>
             </div>
-            <div className="col-lg-2 hero-card d-flex align-items-center justify-content-center">
+            <div className="col-lg-2 my-inset-shadow hero-card d-flex align-items-center justify-content-center">
               <div className="hero-card-face hero-card-front">
                 <h6>توصيل سريع:</h6>
                 <i className="fas fa-shipping-fast"></i>
@@ -43,7 +47,7 @@ export default function Hero_Section() {
                 </p>
               </div>
             </div>
-            <div className="col-lg-2 hero-card d-flex align-items-center justify-content-center">
+            <div className="col-lg-2 my-inset-shadow hero-card d-flex align-items-center justify-content-center">
               <div className="hero-card-face hero-card-front">
                 <h6>تجربة تسوق مريحة:</h6>
                 <i className="fas fa-smile-wink"></i>
@@ -55,7 +59,7 @@ export default function Hero_Section() {
                 </p>
               </div>
             </div>
-            <div className="col-lg-2 hero-card d-flex align-items-center justify-content-center">
+            <div className="col-lg-2 my-inset-shadow hero-card d-flex align-items-center justify-content-center">
               <div className="hero-card-face hero-card-front">
                 <h6>عروض وخصومات:</h6>
                 <i class="fas fa-user-tag"></i>{" "}
@@ -64,7 +68,7 @@ export default function Hero_Section() {
                 <p>توقع عروضًا حصرية وخصومات رائعة على منتجات مختارة.</p>
               </div>
             </div>
-            <div className="col-lg-2 hero-card d-flex align-items-center justify-content-center">
+            <div className="col-lg-2 my-inset-shadow hero-card d-flex align-items-center justify-content-center">
               <div className="hero-card-face hero-card-front">
                 <h6>دعم عملاء ممتاز:</h6>
                 <i className="fas fa-headset"></i>
@@ -83,7 +87,7 @@ export default function Hero_Section() {
         </div>
         <div className="col-6 col-md-6 col-lg-3 hero-sections rb imgs-container">
           <img
-            src={selectedMode === "dark" ? beard : gate}
+            src={theme_context.theme === "dark" ? beard : gate}
             alt="r-b-img"
             className="imgs"
           />
@@ -99,7 +103,7 @@ export default function Hero_Section() {
         </div>
         <div className="col-6 col-md-6 col-lg-3 hero-sections lb-c imgs-container">
           <img
-            src={selectedMode === "dark" ? gazelle : road}
+            src={theme_context.theme === "dark" ? gazelle : road}
             alt="l-b-c-img"
             className="imgs"
           />
